@@ -79,3 +79,34 @@ jQuery.fn.scrollBottom = function() {
 		jQuery(this).scrollTop(9999); // $(this).find(':last').offset().top
 	})
 }
+
+
+// Equalize the heights of elements
+// (via http://www.cssnewbie.com/equalheights-jquery-plugin/)
+// Usage: $(elems).equalHeights([minHeight][, maxHeight])
+// Example: $('.foo').equalHeights()
+jQuery.fn.equalHeights = function(minHeight, maxHeight) {
+	var tallest = minHeight ? minHeight : 0;
+	this.each(function() {
+		var height = jQuery(this).height() + jQuery(this).extraHeight();
+		if (height > tallest)
+			tallest = height;
+	});
+	if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
+	return this.each(function() {
+		jQuery(this).height(tallest - jQuery(this).extraHeight());
+	});
+}
+
+// Returns the extra height provided by borders and paddings
+// Example: $('.foo').css({border:'1px solid'}).extraHeight(); # => 2
+jQuery.fn.extraHeight = function() {
+	var height = 0;
+	var properties = $(['border-top-width', 'border-bottom-width', 'padding-top', 'padding-bottom']);
+	properties.each(function(i, prop) {
+		var size = parseInt(this.css(prop), 10);
+		if (!isNan(size))
+			height += size
+	});
+	return height;
+}
