@@ -2,7 +2,7 @@
 // Keeps the default in the "data-default" attribute
 jQuery.fn.clearDefault = function() {
 	return jQuery(this).each(function(i, elem) {
-		var elem = $(elem);
+		var elem = jQuery(elem);
 		elem.attr('data-default', elem.val());
 		elem.focus(function(e) {
 			if (elem.val() == elem.attr('data-default'))
