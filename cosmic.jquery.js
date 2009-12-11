@@ -1,5 +1,5 @@
-// Clears a text-field of it's default
-// Keeps the default in the "data-default" attribute
+// Clears a text-field of it's default value on focus
+// (Keeps the default in the `data-default` attribute)
 jQuery.fn.clearDefault = function() {
 	return jQuery(this).each(function(i, elem) {
 		var elem = jQuery(elem);
@@ -109,4 +109,13 @@ jQuery.fn.extraHeight = function() {
 			height += size
 	});
 	return height;
+}
+
+// Add a class whenever ajax is loading
+// Example: $('body').ajaxLoadingClass('loading')
+jQuery.fn.ajaxLoadingClass = function(classname) {
+	var that = jQuery(this);
+	jQuery(window).ajaxStart(function() { that.addClass(classname) });
+	jQuery(window).ajaxStop(function() { that.removeClass(classname) });
+	return that;
 }
