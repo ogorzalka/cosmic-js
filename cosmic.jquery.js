@@ -110,3 +110,34 @@ jQuery.fn.extraHeight = function() {
 	});
 	return height;
 }
+
+
+// CSS expression :file()
+// Queries files by type (image, music, archive, video, email) or extension in links and images.
+// Examples:
+//   $('a:file(music)')  # => all links to zip or rar files
+//   $(':file(jpg)')     # => all links and images in ".jpg"
+jQuery.extend(jQuery.expr[':'], {
+	file: function(a,i,m) {
+		var types = {
+		      image: /\.(png|gif|jpe?g|bmp|tiff|psd|psp|svg|xcf|ico)$/,
+		      music: /\.(mp3|ogg|flac|wav|aif|aiff|aifc|cda|m3u|mid|mod|mp2|snd|voc|wma)$/,
+		      archive: /\.(zip|rar|tar|tar\.gz)$/,
+		      video: /\.(avi|wmv|qt|mkv|flv|mpg|ram)$/,
+		      email: /^(mailto:)/
+		    },
+		    type = m[3],
+		    match = types[type] || new RegExp('\\.'+type+'$'),
+		    target = a.src ? a.src : a.href;
+		return target.match(match);
+	}
+});
+
+// CSS expression :external
+// Example:
+//   $('a:external') # => all rel="external" links
+$.extend($.expr[':'],{
+	external: function(a) {
+		return a.href && $(a).attr("rel") == 'external' && a.href.indexOf('javascript') != 0;
+	}
+});
