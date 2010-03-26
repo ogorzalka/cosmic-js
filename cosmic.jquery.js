@@ -53,6 +53,19 @@ jQuery.fn.toggleClasses = function(firstclass, secondclass) {
 }
 
 
+// Remove a class from a list and apply it on new elements
+// Example:
+//   <p>Foo</p>
+//   <p class="current">Bar</p>
+//   <script>
+//     $('p').replaceClass('current', ':first') // will give .current to "Foo"
+//   </script>
+jQuery.fn.replaceClass = function(className, newElement) {
+	jQuery(this).filter('.'+className).removeClass(className)
+		.end().filter(newElement).addClass(className)
+}
+
+
 // Fade out and show another element during `duration_in_seconds` seconds
 // $(jQuery).replace_with_fade_with_duration('#elem', 10)
 jQuery.fn.replace_with_fade_with_duration = function(replace, duration_in_seconds) {
