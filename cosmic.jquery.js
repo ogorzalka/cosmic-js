@@ -1,3 +1,10 @@
+// Returns a random element from a collection
+// Example: $('p').randElement()
+jQuery.fn.randElement = function() {
+  return jQuery(this).eq(Math.round(Math.random()*(this.length-1)));
+}
+
+
 // Clears a text-field of it's default value on focus
 // (Keeps the default in the `data-default` attribute)
 jQuery.fn.clearDefault = function() {
