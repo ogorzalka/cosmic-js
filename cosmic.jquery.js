@@ -1,3 +1,13 @@
+// Change the window location #hash
+// But makes sure it doesn't scroll by renaming the id temporarily
+jQuery.changeHashWithoutScrolling = function(hash) {
+  var elem = jQuery(hash),
+      id = elem.attr('id')
+  elem.attr('id', id+'-tmp')
+  window.location.hash = hash
+  elem.attr('id', id)
+}
+
 /**
 * jQuery Crash (http://mktgdept.com/jquery-crash)
 * A jQuery plugin to crash IE6.
