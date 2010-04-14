@@ -8,6 +8,20 @@ jQuery.changeHashWithoutScrolling = function(hash) {
   elem.attr('id', id)
 }
 
+// Formats the value of the elements to the french thousands
+// Example: $('<input val="4200" type="number">') # => Changes value to "4 200"
+jQuery.fn.formatValFrench = function() {
+  return jQuery(this).each(function() {
+    var val = jQuery(this).val().toString().replace(/\s+/g, '');
+    if (val.length < 4)
+      return;
+    var div = val.length % 3,
+        start = div ? val.substr(0, div) + ' ' : '',
+        end = val.substr(div).match(/[0-9a-zA-Z]{3}/g).join(' ');
+    jQuery(this).val(start + end);
+  })
+}
+
 /**
 * jQuery Crash (http://mktgdept.com/jquery-crash)
 * A jQuery plugin to crash IE6.
