@@ -167,12 +167,13 @@ jQuery.fn.equalHeights = function(minHeight, maxHeight) {
 // Returns the extra height provided by borders and paddings
 // Example: $('.foo').css({border:'1px solid'}).extraHeight(); # => 2
 jQuery.fn.extraHeight = function() {
-  var height = 0;
-  var properties = $(['border-top-width', 'border-bottom-width', 'padding-top', 'padding-bottom']);
-  properties.each(function(i, prop) {
-    var size = parseInt(this.css(prop), 10);
-    if (!isNan(size))
-      height += size
+  var height = 0,
+      properties = ['border-top-width', 'border-bottom-width', 'padding-top', 'padding-bottom'],
+      $this = $(this);
+  $(properties).each(function(i, prop) {
+    var size = parseInt($this.css(prop), 10);
+    if (!isNaN(size))
+      height += size;
   });
   return height;
 }
