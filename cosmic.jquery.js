@@ -111,6 +111,13 @@ jQuery.fn.replaceClass = function(className, newElement) {
     .end().filter(newElement).addClass(className)
 }
 
+// Adds nth-child-1, nth-child-2, etc. classes to the elements
+// to mimic the :nth-child(1), :nth-child(2), etc. selector.
+jQuery.fn.addNthChildClass = function() {
+  return jQuery(this).each(function(i, item) {
+    jQuery(item).addClass('nth-child-'+(i+1))
+  })
+}
 
 // Fade out and show another element during `duration_in_seconds` seconds
 // $(jQuery).replace_with_fade_with_duration('#elem', 10)
