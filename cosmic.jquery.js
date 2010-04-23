@@ -209,6 +209,21 @@ jQuery.fn.ajaxLoadingClass = function(classname) {
   return that;
 }
 
+// Send ajax requests to the same same url, method and data as a form
+// Example:
+//   $('form').submit(function() {
+//     $(this).ajax({ success: function() { alert('yeehah' )} })
+//   })
+$.fn.ajax = function(options) {
+  return $(this).each(function() {
+    var default_options = {
+      type: $(this).attr('method'),
+      url: $(this).attr('action'),
+      data: $(this).serialize(),
+    }
+    return $.ajax($.extend(default_options, options))
+  })
+}
 
 // CSS expression :file()
 // Queries files by type (image, music, archive, video, email) or extension in links and images.
