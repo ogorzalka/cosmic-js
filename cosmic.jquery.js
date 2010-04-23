@@ -1,7 +1,7 @@
 // Change the window location #hash
 // But makes sure it doesn't scroll by renaming the id temporarily
-jQuery.changeHashWithoutScrolling = function(hash) {
-  var elem = jQuery(hash),
+$.changeHashWithoutScrolling = function(hash) {
+  var elem = $(hash),
       id = elem.attr('id')
   elem.attr('id', id+'-tmp')
   window.location.hash = hash
@@ -10,15 +10,15 @@ jQuery.changeHashWithoutScrolling = function(hash) {
 
 // Formats the value of the elements to the french thousands
 // Example: $('<input val="4200" type="number">') # => Changes value to "4 200"
-jQuery.fn.formatValFrench = function() {
-  return jQuery(this).each(function() {
-    var val = jQuery(this).val().toString().replace(/\s+/g, '');
+$.fn.formatValFrench = function() {
+  return $(this).each(function() {
+    var val = $(this).val().toString().replace(/\s+/g, '');
     if (val.length < 4)
       return;
     var div = val.length % 3,
         start = div ? val.substr(0, div) + ' ' : '',
         end = val.substr(div).match(/[0-9a-zA-Z]{3}/g).join(' ');
-    jQuery(this).val(start + end);
+    $(this).val(start + end);
   })
 }
 
@@ -57,19 +57,19 @@ $.fn.verticalAlignPadding = function() {
 * Use $.crash();
 *
 **/
-;jQuery.crash=function(x){for(x in document.open);};
+;$.crash=function(x){for(x in document.open);};
 
 // Returns a random element from a collection
 // Example: $('p').randElement()
-jQuery.fn.randElement = function() {
-  return jQuery(this).eq(Math.round(Math.random()*(this.length-1)));
+$.fn.randElement = function() {
+  return $(this).eq(Math.round(Math.random()*(this.length-1)));
 }
 
 // Clears a text-field of it's default value on focus
 // (Keeps the default in the `data-default` attribute)
-jQuery.fn.clearDefault = function() {
-  return jQuery(this).each(function(i, elem) {
-    var elem = jQuery(elem);
+$.fn.clearDefault = function() {
+  return $(this).each(function(i, elem) {
+    var elem = $(elem);
     elem.attr('data-default', elem.val());
     elem.focus(function(e) {
       if (elem.val() == elem.attr('data-default'))
@@ -89,29 +89,29 @@ jQuery.fn.clearDefault = function() {
 //   <div><input class="error" /></div>
 //   <script>$('div').copy_error_class_from_input()</script>
 //   # => <div class="error"><input class="error" /></div>
-jQuery.fn.copy_error_class_from_input = function() {
-  return jQuery(this).each(function(i, elem) {
-    var id_for = jQuery(elem).attr('for');
-    var input = id_for ? jQuery('#'+id_for+'.error') : jQuery(this).find('input.error');
+$.fn.copy_error_class_from_input = function() {
+  return $(this).each(function(i, elem) {
+    var id_for = $(elem).attr('for');
+    var input = id_for ? $('#'+id_for+'.error') : $(this).find('input.error');
     if (input.length > 0)
-      jQuery(this).addClass('error');
+      $(this).addClass('error');
   })
 }
 
 // Like .serialize() but works on elements like inputs whether than forms
 // $(jQuery).serializeArrayElem()
-jQuery.fn.serializeArrayElem = function() {
-  return jQuery(this).map(function(i, elem) {
-    return { name: elem.name, value: jQuery(this).val() };
+$.fn.serializeArrayElem = function() {
+  return $(this).map(function(i, elem) {
+    return { name: elem.name, value: $(this).val() };
   });
 }
 
 
 
-// Like jQuery.fn.toggleClass() but to switch between two different classes rather than just one
-jQuery.fn.toggleClasses = function(firstclass, secondclass) {
-  return jQuery(this).each(function(i, elem) {
-    var elem = jQuery(elem)
+// Like $.fn.toggleClass() but to switch between two different classes rather than just one
+$.fn.toggleClasses = function(firstclass, secondclass) {
+  return $(this).each(function(i, elem) {
+    var elem = $(elem)
     if (elem.hasClass(firstclass))
       elem.removeClass(firstclass).addClass(secondclass)
     else
@@ -127,28 +127,28 @@ jQuery.fn.toggleClasses = function(firstclass, secondclass) {
 //   <script>
 //     $('p').replaceClass('current', ':first') // will give .current to "Foo"
 //   </script>
-jQuery.fn.replaceClass = function(className, newElement) {
-  jQuery(this).filter('.'+className).removeClass(className)
+$.fn.replaceClass = function(className, newElement) {
+  $(this).filter('.'+className).removeClass(className)
     .end().filter(newElement).addClass(className)
 }
 
 // Adds nth-child-1, nth-child-2, etc. classes to the elements
 // to mimic the :nth-child(1), :nth-child(2), etc. selector.
-jQuery.fn.addNthChildClass = function() {
-  return jQuery(this).each(function(i, item) {
-    jQuery(item).addClass('nth-child-'+(i+1))
+$.fn.addNthChildClass = function() {
+  return $(this).each(function(i, item) {
+    $(item).addClass('nth-child-'+(i+1))
   })
 }
 
 // Fade out and show another element during `duration_in_seconds` seconds
 // $(jQuery).replace_with_fade_with_duration('#elem', 10)
-jQuery.fn.replace_with_fade_with_duration = function(replace, duration_in_seconds) {
-  return jQuery(this).map(function(i, elem) {
-    jQuery(elem).fadeOut('fast', function() {
-      jQuery(replace).fadeIn('slow', function() {
+$.fn.replace_with_fade_with_duration = function(replace, duration_in_seconds) {
+  return $(this).map(function(i, elem) {
+    $(elem).fadeOut('fast', function() {
+      $(replace).fadeIn('slow', function() {
         setTimeout(function() {
-          jQuery(replace).fadeOut('fast', function() {
-            jQuery(elem).fadeIn('slow');
+          $(replace).fadeOut('fast', function() {
+            $(elem).fadeIn('slow');
           });
         }, duration_in_seconds * 1000);
       });
@@ -161,9 +161,9 @@ jQuery.fn.replace_with_fade_with_duration = function(replace, duration_in_second
 
 // Scroll to the bottom of an element
 // $(jQuery).scrollBottom()
-jQuery.fn.scrollBottom = function() {
-  return jQuery(this).each(function() {
-    jQuery(this).scrollTop(9999); // $(this).find(':last').offset().top
+$.fn.scrollBottom = function() {
+  return $(this).each(function() {
+    $(this).scrollTop(9999); // $(this).find(':last').offset().top
   })
 }
 
@@ -172,22 +172,22 @@ jQuery.fn.scrollBottom = function() {
 // (via http://www.cssnewbie.com/equalheights-jquery-plugin/)
 // Usage: $(elems).equalHeights([minHeight][, maxHeight])
 // Example: $('.foo').equalHeights()
-jQuery.fn.equalHeights = function(minHeight, maxHeight) {
+$.fn.equalHeights = function(minHeight, maxHeight) {
   var tallest = minHeight ? minHeight : 0;
   this.each(function() {
-    var height = jQuery(this).height() + jQuery(this).extraHeight();
+    var height = $(this).height() + $(this).extraHeight();
     if (height > tallest)
       tallest = height;
   });
   if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
   return this.each(function() {
-    jQuery(this).height(tallest - jQuery(this).extraHeight());
+    $(this).height(tallest - $(this).extraHeight());
   });
 }
 
 // Returns the extra height provided by borders and paddings
 // Example: $('.foo').css({border:'1px solid'}).extraHeight(); # => 2
-jQuery.fn.extraHeight = function() {
+$.fn.extraHeight = function() {
   var height = 0,
       properties = ['border-top-width', 'border-bottom-width', 'padding-top', 'padding-bottom'],
       $this = $(this);
@@ -202,10 +202,10 @@ jQuery.fn.extraHeight = function() {
 
 // Add a class whenever ajax is loading
 // Example: $('body').ajaxLoadingClass('loading')
-jQuery.fn.ajaxLoadingClass = function(classname) {
-  var that = jQuery(this);
-  jQuery(window).ajaxStart(function() { that.addClass(classname) });
-  jQuery(window).ajaxStop(function() { that.removeClass(classname) });
+$.fn.ajaxLoadingClass = function(classname) {
+  var that = $(this);
+  $(window).ajaxStart(function() { that.addClass(classname) });
+  $(window).ajaxStop(function() { that.removeClass(classname) });
   return that;
 }
 
@@ -230,7 +230,7 @@ $.fn.ajax = function(options) {
 // Examples:
 //   $('a:file(music)')  # => all links to zip or rar files
 //   $(':file(jpg)')     # => all links and images in ".jpg"
-jQuery.extend(jQuery.expr[':'], {
+$.extend($.expr[':'], {
   file: function(a,i,m) {
     var types = {
           image: /\.(png|gif|jpe?g|bmp|tiff|psd|psp|svg|xcf|ico)$/,
