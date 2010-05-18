@@ -4,7 +4,6 @@
 //   $('#foo a').colorbox({ className: 'foo' })
 //   $('#bar a').colorbox({ className: 'bar' })
 $.fn.colorbox.checkClassName = function(e) {
-  console.log(this, arguments)
   var colorElement = $.fn.colorbox.element(),
       className = colorElement.data('colorbox').className,
       addRemove = e.type == 'cbox_open' ? 'add' : 'remove'
