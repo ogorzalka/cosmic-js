@@ -8,6 +8,17 @@ $.changeHashWithoutScrolling = function(hash) {
   elem.attr('id', id)
 }
 
+// Return the element where points this element's anchor
+// Example :
+//   <a href="#bar">Foo</a>
+//   <span id="bar">Bar</span>
+//   <script>
+//     $('a').anchor().text() # => "Bar"
+//   </script>
+$.fn.anchor = function() {
+  return $($(this).attr('href').replace(/^.*#/, '#'))
+}
+
 // Formats the value of the elements to the french thousands
 // Example: $('<input val="4200" type="number">') # => Changes value to "4 200"
 $.fn.formatValFrench = function() {
