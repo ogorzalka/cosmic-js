@@ -207,7 +207,8 @@ $.fn.scrollBottom = function() {
     	    heightProp = ($.support.minHeight) ? 'min-height' : 'height';
     	this
     	    .each(function(){
-    	 	   maxHeight = (this.offsetHeight>maxHeight) ? this.offsetHeight : maxHeight;
+    	        var $this = $(this);
+    	 	    maxHeight = ($this.outerHeight()>maxHeight) ? ($this.outerHeight()-($this.outerHeight()-$this.height())) : maxHeight;
     	    })
     	    .css(heightProp, maxHeight + "px");
     };
