@@ -169,21 +169,38 @@ $.fn.scrollBottom = function() {
 
 
 // Equalize the heights of elements
-// (via http://www.cssnewbie.com/equalheights-jquery-plugin/)
-// Usage: $(elems).equalHeights([minHeight][, maxHeight])
-// Example: $('.foo').equalHeights()
-$.fn.equalHeights = function(minHeight, maxHeight) {
-  var tallest = minHeight ? minHeight : 0;
-  this.each(function() {
-    var height = $(this).height() + $(this).extraHeight();
-    if (height > tallest)
-      tallest = height;
-  });
-  if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
-  return this.each(function() {
-    $(this).height(tallest - $(this).extraHeight());
-  });
-}
+// (via http://www.clearideaz.com)
+// Usage: $('.foo').equalHeights()
+(function($) {
+    function minheightSupport() {
+        var d = document.createElement('div');
+		$(d)
+    		.css({
+    			height : 1,
+    			minHeight : 2,
+    			overflow : "hidden",
+    			border : 0,
+    			padding : 0,
+    			margin : 0
+    		})
+    		.appendTo('body');
+		var iscorrectheight = d.offsetHeight==2;
+		$(d).remove();
+		return iscorrectheight;
+    }
+    
+	$.extend($.support, { minHeight : minheightSupport() });
+	
+    $.fn.equalHeights=function() {
+    	var maxHeight=0,
+    	    heightProp = ($.support.minHeight) ? 'min-height' : 'height';
+    	this
+    	    .each(function(){
+    	 	   maxHeight = (this.offsetHeight>maxHeight) ? this.offsetHeight : maxHeight;
+    	    })
+    	    .css(heightProp, maxHeight + "px");
+    };
+})(jQuery);
 
 // Returns the extra height provided by borders and paddings
 // Example: $('.foo').css({border:'1px solid'}).extraHeight(); # => 2
